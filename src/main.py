@@ -10,6 +10,7 @@ from src.core.config import settings
 from src.core.exception import register_exception_handlers
 from src.dishes.router import router as dishes_router
 from src.lifespan import lifespan
+from src.recommendation.router import router as recommendation_router
 from src.weather.router import router as weather_router
 
 # from src.core.config import get_settings, Settings
@@ -40,6 +41,9 @@ app.include_router(collections_router)
 
 # 引入天气路由
 app.include_router(weather_router)
+
+# 引入推荐路由
+app.include_router(recommendation_router)
 
 # 路由引入
 # @app.get("/")

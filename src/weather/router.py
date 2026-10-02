@@ -1,3 +1,5 @@
+from typing import Annotated
+
 import httpx
 from fastapi import APIRouter, Depends, Query
 from redis.asyncio import Redis
@@ -14,8 +16,8 @@ router = APIRouter(prefix="/weather", tags=["Weather"])
 
 @router.get("", response_model=WeatherResponse)
 async def weather(
-    city: str = Query(..., description="城市名称，例如: 北京"),
-    client: httpx.AsyncClient = Depends(get_http_client),
+    city: Annotated[str, Query(..., description="城市名称，例如: 北京")],
+    client: Annotated[httpx.AsyncClient, Depends(get_http_client)],
 ):
     data = await fetch_weather(client, city)
     return data
@@ -23,9 +25,9 @@ async def weather(
 
 @router.get("/cached", response_model=WeatherResponse)
 async def weather_cached(
-    city: str = Query(..., description="城市名称，例如: 北京"),
-    client: httpx.AsyncClient = Depends(get_http_client),
-    redis: Redis = Depends(get_cache_redis),
+    city: Annotated[str, Query(..., description="城市名称，例如: 北京")],
+    client: Annotated[httpx.AsyncClient, Depends(get_http_client)],
+    redis: Annotated[Redis, Depends(get_cache_redis)],
 ):
     data = await fetch_weather_with_cache(client, redis, city)
     if data is None:

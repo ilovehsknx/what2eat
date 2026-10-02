@@ -85,6 +85,10 @@ class Settings(BaseSettings):
     def cache_redis_url(self) -> str:
         return f"redis://{self.redis_host}:{self.redis_port}/{self.cache_redis_db}"
 
+    # Ollama 配置（本地大模型）
+    ollama_base_url: str = "http://localhost:11434"
+    ollama_model: str = "qwen3:4b-instruct"
+
     # JWT 配置
     jwt_secret: str = "龘爨麤鬻籱灪蠼蠛纛齉鬲靐龗齾龕鑪鸙饢驫麣"
 

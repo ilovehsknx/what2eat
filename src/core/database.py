@@ -15,7 +15,7 @@ SessionFactory = async_sessionmaker(
 
 
 # 数据库依赖注入
-async def get_db() -> AsyncGenerator[AsyncSession, None]:
+async def get_db() -> AsyncGenerator[AsyncSession]:
     async with SessionFactory() as session:
         yield session
 

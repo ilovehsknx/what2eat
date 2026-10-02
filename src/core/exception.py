@@ -25,6 +25,11 @@ class ForbiddenException(HTTPException):
         super().__init__(status_code=status.HTTP_403_FORBIDDEN, detail=detail)
 
 
+class BadRequestException(HTTPException):
+    def __init__(self, detail: str = "Bad request"):
+        super().__init__(status_code=status.HTTP_400_BAD_REQUEST, detail=detail)
+
+
 # ------------------ 全局兜底 ------------------
 async def global_exception_handler(request: Request, exc: Exception) -> JSONResponse:
     logger.exception(f"Unhandled exception at {request.url.path}: {exc}")
